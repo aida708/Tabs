@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 const url = "https://course-api.com/react-tabs-project";
 
 const App = () => {
-  const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [jobs, setJobs] = useState([]);
 
   //use the fetch Api to get a job info from an external API. use useEffect to make the Api call when the
   //comp mounts. While the data is being fetched , set up a loading state that display a message to the user.
@@ -11,8 +12,9 @@ const App = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(url);
-      const users = await response.json();
-      setUsers(users);
+      const newJobs = await response.json();
+      setJobs(newJobs);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -21,10 +23,19 @@ const App = () => {
   useEffect(() => {
     fetchData();
   }, []);
+  console.log(jobs);
+
+  if (isLoading) {
+    return (
+      <section className="jobs-center">
+        <div className="loading"></div>
+      </section>
+    );
+  }
 
   return (
     <section>
-      {users.map((user) => {
+      {jobs.map((user) => {
         const { id, title, dates, duties } = user;
         return (
           <div key={id}>
