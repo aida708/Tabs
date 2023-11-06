@@ -6,7 +6,7 @@ export default function Duties({ duties }) {
   return (
     <div>
       {duties.map((duty, index) => {
-        const id = uuidv4();
+        // const id = uuidv4();
         return (
           <div key={index} className="job-desc">
             <FaAngleDoubleRight className="job-icon" />
