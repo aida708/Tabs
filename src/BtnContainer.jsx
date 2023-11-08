@@ -1,11 +1,15 @@
 import React from "react";
 
-export default function BtnContainer({ jobs }) {
+export default function BtnContainer({ jobs, currentItem, setCurrentItem }) {
   return (
     <div>
-      {jobs.map((item) => {
+      {jobs.map((item, index) => {
         return (
-          <button className="job-btn" key={item.id}>
+          <button
+            className={index === currentItem ? "job-btn active-btn" : "job-btn"}
+            key={item.id}
+            onClick={() => setCurrentItem(index)}
+          >
             {item.company}
           </button>
         );
